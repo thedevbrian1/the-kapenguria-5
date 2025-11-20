@@ -6,5 +6,8 @@ export default [
   route("login", "routes/auth/login.tsx"),
   route("dashboard", "routes/dashboard/dashboard.tsx", [
     index("routes/dashboard/index.tsx"),
+    route("learning", "routes/dashboard/learning.tsx"),
+    route("learning/:title", "routes/dashboard/learning-path.tsx"),
+    route("learning/:title/:id", "routes/dashboard/lesson.tsx"),
   ]),
 ] satisfies RouteConfig;
