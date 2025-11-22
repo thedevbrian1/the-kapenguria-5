@@ -2,22 +2,10 @@ import { ArrowRight, CirclePlus } from "lucide-react";
 import { data, Form, Link, redirect } from "react-router";
 import { Button } from "~/components/ui/button";
 import type { Route } from "./+types/learning";
-import axios from "axios";
-import { useEffect } from "react";
+import { getCourses } from "~/models/course";
 
 export async function loader() {
-  let res = await fetch(
-    `http://wm-hack-env.eba-pyegadkw.us-west-2.elasticbeanstalk.com/api/v1/courses/`,
-    {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        // Host: "wm-hack-env.eba-pyegadkw.us-west-2.elasticbeanstalk.com",
-      },
-    }
-  );
-  console.log(`${res}`);
-  let courses = await res.json();
+  let { courses } = await getCourses();
 
   return { courses };
 }
