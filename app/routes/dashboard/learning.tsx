@@ -1,41 +1,66 @@
 import { ArrowRight, CirclePlus } from "lucide-react";
-import { Form, Link, redirect } from "react-router";
+import { data, Form, Link, redirect } from "react-router";
 import { Button } from "~/components/ui/button";
 import type { Route } from "./+types/learning";
+import axios from "axios";
+import { useEffect } from "react";
+
+export async function loader() {
+  let res = await fetch(
+    `http://wm-hack-env.eba-pyegadkw.us-west-2.elasticbeanstalk.com/api/v1/courses/`,
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // Host: "wm-hack-env.eba-pyegadkw.us-west-2.elasticbeanstalk.com",
+      },
+    }
+  );
+  console.log(`${res}`);
+  let courses = await res.json();
+
+  return { courses };
+}
 
 export async function action({ request }: Route.ActionArgs) {
   return redirect("/dashboard/learning/1");
 }
 
-export default function Learning() {
+export default function Learning({ loaderData }: Route.ComponentProps) {
+  let { courses } = loaderData;
+  console.log({ courses });
+
   return (
     <div className="md:max-w-xl lg:max-w-6xl">
       <h1 className="font-semibold text-3xl">Learning paths</h1>
 
-      <div className="mt-8 bg-[url('https://img.youtube.com/vi/S9hcOuLYKBI/maxresdefault.jpg')] bg-cover bg-center  relative rounded-lg">
-        <div className="w-full h-full  bg-linear-to-r from-green-800 from-30% flex items-center rounded-lg">
-          <div className="text-white p-6 max-w-4/5 md:max-w-[60%] lg:max-w-1/2">
-            <h2 className="font-semibold text-2xl">Recycling</h2>
-            <p className="mt-4 text-gray-300">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur
-              quae quaerat accusamus nihil vel eaque commodi tenetur quam
-              tempore exercitationem.
-            </p>
+      <div className=" mt-8">
+        <ul className="space-y-4">
+          {courses.map((item) => (
+            <li key={item.id}>
+              <div className=" bg-[url('https://img.youtube.com/vi/S9hcOuLYKBI/maxresdefault.jpg')] bg-cover bg-center  relative rounded-lg">
+                <div className="w-full h-full  bg-linear-to-r from-green-800 from-30% flex items-center rounded-lg">
+                  <div className="text-white p-6 max-w-4/5 md:max-w-[60%] lg:max-w-1/2">
+                    <h2 className="font-semibold text-2xl capitalize">
+                      {item.title}
+                    </h2>
+                    <p className="mt-4 text-gray-300">{item.description}</p>
 
-            <Form method="post">
-              <Button className=" mt-4 bg-[#93731a] hover:bg-[#765c15] focus-visible:ring-4 focus-visible:ring-offset-2  focus-visible:ring-yellow-500 active:scale-[.97] transition ease-in-out duration-300 px-4 py-2 rounded-lg text-white capitalize flex gap-2 items-center group">
-                <CirclePlus />
-                Enrol now
-              </Button>
-            </Form>
-          </div>
-        </div>
-        {/* TODO: Add sub categories e.g Recycling, renewable energy, sustainable living */}
-        {/* <h3>Basic</h3>
+                    <Form method="post">
+                      <Button className=" mt-4 bg-[#93731a] hover:bg-[#765c15] focus-visible:ring-4 focus-visible:ring-offset-2  focus-visible:ring-yellow-500 active:scale-[.97] transition ease-in-out duration-300 px-4 py-2 rounded-lg text-white capitalize flex gap-2 items-center group">
+                        <CirclePlus />
+                        Enrol now
+                      </Button>
+                    </Form>
+                  </div>
+                </div>
+
+                {/* TODO: Add sub categories e.g Recycling, renewable energy, sustainable living */}
+                {/* <h3>Basic</h3>
         <h3>Intermediate</h3>
         <h3>Advanced</h3> */}
 
-        {/* <div className="mt-4 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* <div className="mt-4 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="space-y-2">
             <div>
               <img
@@ -89,6 +114,10 @@ export default function Learning() {
             </Link>
           </div>
         </div> */}
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
 
       {/* TODO: Have a course of the day */}
@@ -99,9 +128,8 @@ export default function Learning() {
       Unlock the next lesson after one finishes the quiz
       */}
       {/* TODO: Award points based on the no of correct answers */}
-      <div className="mt-8">
+      {/* <div className="mt-8">
         <h2 className="font-semibold text-xl">Renewable energy (locked)</h2>
-        {/* TODO: Add sub categories e.g Recycling, renewable energy, sustainable living */}
         <h3>Basic</h3>
         <h3>Intermediate</h3>
         <h3>Advanced</h3>
@@ -160,7 +188,7 @@ export default function Learning() {
             </Link>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

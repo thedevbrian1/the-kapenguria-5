@@ -1,3 +1,7 @@
+// import { prisma } from "~/.server/db";
+import { createClient } from "~/.server/supabase";
+import { badRequest } from "~/.server/validation";
+
 export async function signUpUser(
   request: Request,
   email: string,
