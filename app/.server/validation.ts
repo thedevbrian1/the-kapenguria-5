@@ -4,7 +4,7 @@ export function validateDate(date: string) {
   let now = new Date();
   let userDate = new Date(date);
 
-  if (userDate.getTime() < now.getTime()) {
+  if (userDate.getTime() > now.getTime()) {
     return "Invalid date";
   }
 }

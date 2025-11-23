@@ -65,6 +65,9 @@ async function createUser(
 
   let res = await fetch(`${process.env.BASE_URL_ENDPOINT}/api/auth/register/`, {
     method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: reqBody,
   });
 

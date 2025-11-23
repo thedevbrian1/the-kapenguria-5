@@ -107,6 +107,8 @@ export async function action({ request }: Route.ActionArgs) {
         phone
       );
 
+      console.log({ newUser });
+
       if (newUser?.id) {
         setSuccessMessage(
           session,

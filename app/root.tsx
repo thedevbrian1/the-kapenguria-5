@@ -51,6 +51,8 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   if (userId) {
     let dbUser = await getUserByUserId(userId);
+
+    console.log({ dbUser });
     // role = dbUser?.role;
   }
 

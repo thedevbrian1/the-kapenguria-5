@@ -23,9 +23,13 @@ import {
   sessionStorage,
   setSuccessMessage,
 } from "~/.server/session";
+import { requireUser } from "~/.server/supabase";
 
 export async function action({ request }: Route.ActionArgs) {
   let session = await getSession(request);
+  let { dbUser } = await requireUser(request);
+
+  let userId = dbUser.id;
 
   let uploadHandler = async (fileUpload: FileUpload) => {
     if (
@@ -110,11 +114,12 @@ export async function action({ request }: Route.ActionArgs) {
   }));
 
   let userActionObj = {
+    user: userId,
     title,
     date,
     location,
     description,
-    image_urls: mediaRecords,
+    images: uploadedUrls,
   };
 
   let result = await createUserAction(userActionObj);
