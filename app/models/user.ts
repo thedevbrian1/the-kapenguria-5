@@ -54,14 +54,21 @@ async function createUser(
   userId: string,
   role: string
 ) {
-  return prisma.user.create({
-    data: {
-      firstName,
-      lastName,
-      email,
-      phone,
-      userId,
-      role,
-    },
+  let reqBody = JSON.stringify({
+    email,
+    phone_number: phone,
+    first_name: firstName,
+    last_name: lastName,
+    user_id: userId,
+    role,
   });
+
+  let res = await fetch(`${process.env.BASE_URL_ENDPOINT}/api/auth/register/`, {
+    method: "post",
+    body: reqBody,
+  });
+
+  let user = await res.json();
+
+  return user;
 }

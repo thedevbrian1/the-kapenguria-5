@@ -2,6 +2,7 @@ import {
   Blocks,
   BookCheck,
   BookOpen,
+  Leaf,
   Mail,
   RotateCcw,
   User,
@@ -25,7 +26,12 @@ export default function UserDashboard({ loaderData }: Route.ComponentProps) {
       icon: <Blocks />,
       id: 1,
     },
-
+    {
+      title: "Action Hub",
+      path: "/dashboard/user-actions",
+      icon: <Leaf />,
+      id: 5,
+    },
     {
       title: "Learning Hub",
       path: "/dashboard/learning",

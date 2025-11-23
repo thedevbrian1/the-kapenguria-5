@@ -9,5 +9,7 @@ export default [
     route("learning", "routes/dashboard/learning.tsx"),
     route("learning/:title", "routes/dashboard/learning-path.tsx"),
     route("learning/:title/:id", "routes/dashboard/lesson.tsx"),
+    route("user-actions", "routes/dashboard/user-actions.tsx"),
+    route("user-actions/:id", "routes/dashboard/user-action.tsx"),
   ]),
 ] satisfies RouteConfig;
