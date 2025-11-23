@@ -4,8 +4,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 html,
@@ -15,6 +16,37 @@ body {
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+}
+
+#user-profile:popover-open {
+  min-width: 200px;
+  min-height: 100px;
+  position: fixed;
+  inset: unset;
+  /* top: 65px;
+  right: 5px; */
+  right: anchor(right);
+  top: anchor(bottom);
+  margin: 0;
+  /* border: 1px solid red; */
+  padding: 16px;
+  border-radius: 16px;
+}
+
+#mobile-menu:popover-open {
+  min-width: 200px;
+  /* height: 100px; */
+  position: fixed;
+  inset: unset;
+  top: 0;
+  right: 0;
+  /* position-area: block-end; */
+  /* top: anchor(bottom); */
+
+  /* inset: unset; */
+  /* bottom: 5px;
+  right: 5px; */
+  margin: 0;
 }
 
 @theme inline {

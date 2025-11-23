@@ -9,3 +9,5 @@
 /generated/prisma
 
 /generated/prisma
+.vercel
+.env*.local

@@ -6,7 +6,7 @@ invariant(process.env.SESSION_SECRET, "SESSION_SECRET must be set");
 
 export let sessionStorage = createCookieSessionStorage({
   cookie: {
-    name: "qc_session",
+    name: "mazingira_session",
     httpOnly: true,
     maxAge: 60 * 60 * 24,
     path: "/",

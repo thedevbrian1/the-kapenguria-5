@@ -72,3 +72,12 @@ async function createUser(
 
   return user;
 }
+
+export async function getUserByUserId(userId: string) {
+  let res = await fetch(
+    `${process.env.BASE_URL_ENDPOINT}/api/auth/users/${userId}`
+  );
+  let user = await res.json();
+
+  return user;
+}

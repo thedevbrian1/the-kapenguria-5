@@ -3,6 +3,7 @@ import {
   Form,
   isRouteErrorResponse,
   Link,
+  redirect,
   useNavigation,
   useRouteError,
 } from "react-router";
@@ -13,6 +14,50 @@ import { Label } from "~/components/ui/label";
 import type { Route } from "./+types/login";
 import { useSpinDelay } from "spin-delay";
 import { LoaderIcon } from "~/components/Icons";
+import {
+  getSession,
+  sessionStorage,
+  setSuccessMessage,
+} from "~/.server/session";
+import {
+  badRequest,
+  trimString,
+  validateEmail,
+  validatePassword,
+} from "~/.server/validation";
+import { login } from "~/.server/supabase";
+
+export async function action({ request }: Route.ActionArgs) {
+  let redirectTo = new URL(request.url).searchParams.get("redirectTo") || "/";
+
+  let session = await getSession(request);
+
+  let formData = await request.formData();
+  let email = String(formData.get("email"));
+  let password = String(formData.get("password"));
+
+  let trimmedEmail = trimString(email);
+  let fieldErrors = {
+    email: validateEmail(trimmedEmail),
+    password: validatePassword(password),
+  };
+
+  if (Object.values(fieldErrors).some(Boolean)) {
+    return badRequest({ fieldErrors });
+  }
+
+  let { headers } = await login(request, email, password);
+
+  setSuccessMessage(session, "Logged in successfully!");
+  let allHeaders = {
+    ...Object.fromEntries(headers.entries()),
+    "Set-Cookie": await sessionStorage.commitSession(session),
+  };
+
+  return redirect(redirectTo, {
+    headers: allHeaders,
+  });
+}
 
 export default function Login({
   loaderData,
