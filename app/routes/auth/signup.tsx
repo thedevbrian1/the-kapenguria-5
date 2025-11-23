@@ -22,7 +22,11 @@ import {
   validateText,
 } from "~/.server/validation";
 import { signUpUser } from "~/models/user";
-import { setSuccessMessage } from "~/.server/session";
+import {
+  getSession,
+  sessionStorage,
+  setSuccessMessage,
+} from "~/.server/session";
 
 export async function action({ request }: Route.ActionArgs) {
   let page = Number(new URL(request.url).searchParams.get("page")) || 1;

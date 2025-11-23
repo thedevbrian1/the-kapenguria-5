@@ -1,10 +1,10 @@
-import { redirect } from "react-router";
+// import { redirect } from "react-router";
 import {
   createServerClient,
   parseCookieHeader,
   serializeCookieHeader,
 } from "@supabase/ssr";
-import { getUserByUserId } from "~/models/user";
+// import { getUserByUserId } from "~/models/user";
 
 export function createClient(request: Request, isAdmin = false) {
   // let cookies = parse(request.headers.get('Cookie') ?? '');
@@ -44,44 +44,44 @@ export async function getUser(request: Request) {
   return { user, headers };
 }
 
-export async function requireUser(
-  request: Request,
-  redirectTo = new URL(request.url).pathname
-) {
-  let { supabase, headers } = createClient(request);
-  let {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (user) {
-    let userId = user.id;
-    let dbUser = await getUserByUserId(userId);
+// export async function requireUser(
+//   request: Request,
+//   redirectTo = new URL(request.url).pathname
+// ) {
+//   let { supabase, headers } = createClient(request);
+//   let {
+//     data: { user },
+//   } = await supabase.auth.getUser();
+//   if (user) {
+//     let userId = user.id;
+//     let dbUser = await getUserByUserId(userId);
 
-    return { user, dbUser, headers };
-  }
-  let searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
-  throw redirect(`/login?${searchParams}`);
-}
+//     return { user, dbUser, headers };
+//   }
+//   let searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
+//   throw redirect(`/login?${searchParams}`);
+// }
 
-export async function requireAdminUser(
-  request: Request,
-  redirectTo = new URL(request.url).pathname
-) {
-  let { supabase, headers } = createClient(request);
-  let {
-    data: { user },
-  } = await supabase.auth.getUser();
+// export async function requireAdminUser(
+//   request: Request,
+//   redirectTo = new URL(request.url).pathname
+// ) {
+//   let { supabase, headers } = createClient(request);
+//   let {
+//     data: { user },
+//   } = await supabase.auth.getUser();
 
-  let userId = user?.id;
+//   let userId = user?.id;
 
-  if (userId) {
-    let dbUser = await getUserByUserId(userId);
-    if (user?.email === "brayomwas95@gmail.com" || dbUser.role === "ADMIN") {
-      return { user, dbUser, headers };
-    }
-  }
-  let searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
-  throw redirect(`/login?${searchParams}`);
-}
+//   if (userId) {
+//     let dbUser = await getUserByUserId(userId);
+//     if (user?.email === "brayomwas95@gmail.com" || dbUser.role === "ADMIN") {
+//       return { user, dbUser, headers };
+//     }
+//   }
+//   let searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
+//   throw redirect(`/login?${searchParams}`);
+// }
 
 export async function updatePassword(request: Request, password: string) {
   let { supabase, headers } = createClient(request);
