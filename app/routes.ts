@@ -13,5 +13,6 @@ export default [
     route("learning/:title/:id", "routes/dashboard/lesson.tsx"),
     route("user-actions", "routes/dashboard/user-actions.tsx"),
     route("user-actions/:id", "routes/dashboard/user-action.tsx"),
+    route("user-actions/new", "routes/dashboard/new-user-action.tsx"),
   ]),
 ] satisfies RouteConfig;
