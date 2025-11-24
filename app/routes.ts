@@ -14,5 +14,6 @@ export default [
     route("user-actions", "routes/dashboard/user-actions.tsx"),
     route("user-actions/:id", "routes/dashboard/user-action.tsx"),
     route("user-actions/new", "routes/dashboard/new-user-action.tsx"),
+    route("user-actions/:id/new", "routes/dashboard/new-follow-up-action.tsx"),
   ]),
 ] satisfies RouteConfig;

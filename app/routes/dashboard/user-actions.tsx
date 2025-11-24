@@ -1,34 +1,16 @@
 import { Link } from "react-router";
 import type { Route } from "./+types/user-actions";
 import { Calendar, Plus } from "lucide-react";
+import { requireUser } from "~/.server/supabase";
+import { getUserActions } from "~/models/user-action";
 
-export async function loader() {
-  let userActions = [
-    {
-      title: "Planted tree",
-      imageSrc:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3EYAWXNVFO-RODlmTbCGSBNVMIqTf1D1rgQ&s",
-      id: 1,
-    },
-    {
-      title: "Planted tree",
-      imageSrc:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3EYAWXNVFO-RODlmTbCGSBNVMIqTf1D1rgQ&s",
-      id: 2,
-    },
-    {
-      title: "Planted tree",
-      imageSrc:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3EYAWXNVFO-RODlmTbCGSBNVMIqTf1D1rgQ&s",
-      id: 3,
-    },
-    {
-      title: "Planted tree",
-      imageSrc:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3EYAWXNVFO-RODlmTbCGSBNVMIqTf1D1rgQ&s",
-      id: 4,
-    },
-  ];
+export async function loader({ request }: Route.LoaderArgs) {
+  let { dbUser } = await requireUser(request);
+
+  let userId = dbUser.id;
+
+  let userActions = await getUserActions(userId);
+
   return { userActions };
 }
 export default function UserActions({ loaderData }: Route.ComponentProps) {
@@ -85,7 +67,7 @@ export default function UserActions({ loaderData }: Route.ComponentProps) {
                 </p>
                 <div className="mt-4">
                   <img
-                    src={item.imageSrc}
+                    src={item.uploaded_images[0]?.image_url}
                     alt=""
                     className="w-full h-full rounded-lg"
                   />

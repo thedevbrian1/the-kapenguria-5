@@ -33,7 +33,7 @@ export async function action({ request }: Route.ActionArgs) {
 
   let uploadHandler = async (fileUpload: FileUpload) => {
     if (
-      fileUpload.fieldName === "bike-image" &&
+      fileUpload.fieldName === "user-action-image" &&
       fileUpload.type.startsWith("image/")
     ) {
       // console.log("File type:", fileUpload.type, "Size:", fileUpload.size);
