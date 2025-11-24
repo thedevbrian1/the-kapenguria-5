@@ -1,26 +1,41 @@
-# Welcome to React Router!
+# Mazingira 360
 
-A modern, production-ready template for building full-stack React applications using React Router.
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+Mazingira 360 is a full-stack web application built with React and React Router for reporting environmental incidents and tracking user actions towards conservation. It features a complete authentication system, a user dashboard, and server-side rendering.
 
 ## Features
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+-   **Full-Stack with React Router**: Modern React Router with file-based routing, data loaders, and actions.
+-   **Server-Side Rendering (SSR)**: Fast initial page loads and improved SEO.
+-   **User Authentication**: Secure user login and session management powered by [Supabase](https://supabase.com/).
+-   **Dashboard**: A dedicated dashboard for users to view their profile, actions, and reports.
+-   **Incident Reporting**: A complete form for users to report environmental incidents with details and evidence uploads.
+-   **Modern Styling**: Styled with [Tailwind CSS](https://tailwindcss.com/) for a utility-first approach.
+-   **Type-Safe**: Written entirely in [TypeScript](https://www.typescriptlang.org/).
+
+## Tech Stack
+
+-   **Framework**: [React Router](https://reactrouter.com/)
+-   **UI Library**: [React](https://react.dev/)
+-   **Backend & Auth**: [Supabase](https://supabase.com/)
+-   **Build Tool**: [Vite](https://vitejs.dev/)
+-   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+-   **Language**: TypeScript
 
 ## Getting Started
 
-### Installation
+### 1. Prerequisites
 
-Install the dependencies:
+-   Node.js (v18 or higher)
+-   npm
+-   A Supabase account for database and authentication.
+
+### 2. Installation
+
+Clone the repository and install the dependencies:
 
 ```bash
+git clone <your-repository-url>
+cd the-kapenguria-5
 npm install
 ```
 
