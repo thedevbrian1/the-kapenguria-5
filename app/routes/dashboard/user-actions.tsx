@@ -65,11 +65,13 @@ export default function UserActions({ loaderData }: Route.ComponentProps) {
                     // hour12: false,
                   }).format(new Date())}
                 </p>
-                <div className="mt-4">
+                <div className="mt-4 h-40">
                   <img
-                    src={item.uploaded_images[0]?.image_url}
+                    src={
+                      item.uploaded_images[0]?.image_url || "/placeholder.svg"
+                    }
                     alt=""
-                    className="w-full h-full rounded-lg"
+                    className="w-full h-full rounded-lg object-cover"
                   />
                 </div>
               </li>

@@ -52,7 +52,7 @@ export default function UserAction({ loaderData }: Route.ComponentProps) {
         </h1>
         <div className="h-48 lg:h-64">
           <img
-            src={`${userAction.uploaded_images[0].image_url}`}
+            src={userAction.uploaded_images[0]?.image_url || "/placeholder.svg"}
             alt=""
             className="w-full h-full object-cover rounded-lg"
           />

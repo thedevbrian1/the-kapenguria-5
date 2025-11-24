@@ -66,9 +66,9 @@ export default function UserDashboard({ loaderData }: Route.ComponentProps) {
                 end
                 prefetch="intent"
                 className={({ isActive }) =>
-                  `w-full flex p-3 gap-2 hover:bg-purple-50 focus-visible:ring-4 focus-visible:ring-offset-2  focus-visible:ring-yellow-500 transition ease-in-out duration-300 rounded-lg ${
+                  `w-full flex p-3 gap-2 hover:bg-gray-200 focus-visible:ring-4 focus-visible:ring-offset-2  focus-visible:ring-yellow-500 transition ease-in-out duration-300 rounded-lg ${
                     isActive
-                      ? "bg-green-700 hover:bg-green-700 hover:text-yellow-300 text-white"
+                      ? "bg-green-700 hover:bg-green-500 hover:text-yellow-300 text-white"
                       : ""
                   }`
                 }
@@ -105,9 +105,9 @@ export default function UserDashboard({ loaderData }: Route.ComponentProps) {
                 end
                 prefetch="intent"
                 className={({ isActive }) =>
-                  `w-full flex justify-center p-3 hover:text-orange-500 transition ease-in-out duration-300 ${
+                  `w-full flex justify-center p-3 hover:bg-gray-200 transition ease-in-out duration-300 ${
                     isActive
-                      ? "bg-purple-700 hover:bg-purple-700 hover:text-yellow-300 text-white"
+                      ? "bg-green-700 hover:bg-green-500 hover:text-yellow-300 text-white"
                       : ""
                   }`
                 }
