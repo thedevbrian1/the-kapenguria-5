@@ -21,7 +21,7 @@ import { getUser } from "./.server/supabase";
 import { getSession, sessionStorage } from "./.server/session";
 import { useEffect } from "react";
 import { getUserByUserId } from "./models/user";
-import { ArrowRight, LogIn, LogOut, Menu, User, X } from "lucide-react";
+import { ArrowRight, Coins, LogIn, LogOut, Menu, User, X } from "lucide-react";
 import { Button } from "./components/ui/button";
 import { navLinks } from "./utils";
 import { GridLoader, LoaderIcon } from "./components/Icons";
@@ -50,8 +50,10 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   let role = "USER";
 
+  let dbUser;
+
   if (userId) {
-    let dbUser = await getUserByUserId(userId);
+    dbUser = await getUserByUserId(userId);
 
     console.log({ dbUser });
     // role = dbUser?.role;
@@ -62,7 +64,7 @@ export async function loader({ request }: Route.LoaderArgs) {
     "Set-Cookie": await sessionStorage.commitSession(session),
   };
   return data(
-    { toastMessage, userId, userEmail, role },
+    { toastMessage, userId, userEmail, role, dbUser },
     {
       headers: allHeaders,
     }
@@ -142,10 +144,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     <button
                       id="user-profile-toggle"
                       popoverTarget="user-profile"
-                      className="w-12 h-12 grid place-items-center bg-slate-600 hover:bg-slate-800 focus-visible:ring-4 focus-visible:ring-offset-2  focus-visible:ring-yellow-500 transition ease-in-out duration-300 rounded-full"
+                      className="w-9 h-9 md:w-12 md:h-12 grid place-items-center bg-slate-600 hover:bg-slate-800 focus-visible:ring-4 focus-visible:ring-offset-2  focus-visible:ring-yellow-500 transition ease-in-out duration-300 rounded-full"
                     >
                       <User className="text-white" />
                     </button>
+                    <div className="flex gap-2 items-center text-green-700 font-semibold">
+                      <Coins />
+                      <span className="">
+                        {loaderData?.dbUser?.user_action_points}
+                      </span>
+                    </div>
                     <div className="hidden md:block">
                       {isAdminUser && pathName.includes("/dashboard") ? (
                         <Link
