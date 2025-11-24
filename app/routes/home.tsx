@@ -119,6 +119,7 @@ const FeatureCard = ({
     <p>{description}</p>
   </div>
 );
+<elevenlabs-convai agent-id="agent_2801kanjr4p6exk8hmxpany2vq53"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 
 const Footer = () => (
   <footer id="contact" className="bg-green-800 text-white py-5 text-center">
