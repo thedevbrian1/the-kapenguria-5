@@ -21,10 +21,11 @@ import { getUser } from "./.server/supabase";
 import { getSession, sessionStorage } from "./.server/session";
 import { useEffect } from "react";
 import { getUserByUserId } from "./models/user";
-import { ArrowRight, LogOut, Menu, User, X } from "lucide-react";
+import { ArrowRight, LogIn, LogOut, Menu, User, X } from "lucide-react";
 import { Button } from "./components/ui/button";
 import { navLinks } from "./utils";
-import { LoaderIcon } from "./components/Icons";
+import { GridLoader, LoaderIcon } from "./components/Icons";
+import { useSpinDelay } from "spin-delay";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -78,6 +79,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
   let isSubmitting = navigation.state === "submitting";
   let isLoading = navigation.state === "loading";
 
+  let showLoader = useSpinDelay(isLoading, {
+    delay: 150,
+    minDuration: 500,
+  });
+
   let location = useLocation();
   let pathName = location.pathname;
 
@@ -111,13 +117,23 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        {showLoader ? (
+          <div className="w-full fixed z-30 flex items-center justify-center inset-0 bg-black/50">
+            <span className="w-16 h-16">
+              <GridLoader />
+            </span>
+          </div>
+        ) : null}
         <header>
-          <nav className="fixed right-0 left-0 top-0 z-10 flex items-center justify-between px-6 md:px-10 py-6 bg-gray-200/70 backdrop-blur-sm">
+          <nav className="fixed right-0 left-0 top-0 z-10 flex items-center justify-between px-6 md:px-10  bg-gray-200/70 backdrop-blur-sm h-24">
             <Link
               to="/"
               className="flex focus-visible:ring-4 focus-visible:ring-offset-2 focus-visible:ring-yellow-500 transition ease-in-out duration-300"
             >
-              <img src="/logo.png" alt="" className="w-44 md:w-60" />
+              {/* <img src="/logo.png" alt="" className="w-44 md:w-60" /> */}
+              <p className="m-0 text-2xl font-bold text-green-600">
+                Mazingira 360
+              </p>
             </Link>
             <div>
               <div className="flex items-center gap-4">
@@ -156,7 +172,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 ) : null}
 
                 {/* Desktop nav */}
-                <ul className="hidden lg:flex gap-4">
+                <ul className="hidden lg:flex gap-4 items-center">
                   {navLinks.map((item, index) => (
                     <li key={index} className="menu-list-item">
                       <NavLink
@@ -175,6 +191,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
                       </NavLink>
                     </li>
                   ))}
+                  {!loaderData?.userId ? (
+                    <li>
+                      <Link
+                        to="/login"
+                        className="w-full bg-green-700 hover:bg-green-500 focus-visible:ring-4 focus-visible:ring-offset-2  focus-visible:ring-yellow-500 active:scale-[.97] transition ease-in-out duration-300 px-4 py-2 rounded-lg text-white capitalize flex gap-2 items-center group max-w-fit mx-auto text-sm"
+                      >
+                        <LogIn />
+                        Log In
+                      </Link>
+                    </li>
+                  ) : null}
                 </ul>
 
                 {/* Mobile nav */}
